@@ -1,0 +1,15 @@
+{
+  "name": "node-jsarduino",
+  "version": "0.0.0",
+  "description": "NodeJSArduino",
+  "main": "server.js",
+  "author": {
+    "name": "Mikołaj"
+  },
+  "dependencies": {
+    "express": "^4.16.2",
+    "johnny-five": "^0.11.6",
+    "serialport": "^6.0.4",
+    "ws": "^3.3.2"
+  }
+}
