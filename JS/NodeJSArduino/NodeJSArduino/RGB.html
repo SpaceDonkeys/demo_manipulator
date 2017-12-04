@@ -1,0 +1,32 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    
+</head>
+<body>
+    <h3>Red:</h3>
+    <input id="red" type="range" min="0" max="255" step="1" value="0" onchange = "changeBackground()">
+
+    <h3>Green:</h3>
+    <input id="green" type="range" min="0" max="255" step="1" value="0" onchange = "changeBackground()">
+
+    <h3>Blue:</h3>
+    <input id="blue" type="range" min="0" max="255" step="1" value="0" onchange = "changeBackground()">
+
+    <!-- include the client socket library-->
+    <script src="/socket.io/socket.io.js"></script>
+
+    <script src="./client.js"></script>
+    <script>
+function changeBackground () {
+  var r = parseInt(document.getElementById('red').value, 10),
+      g = parseInt(document.getElementById('green').value, 10),
+      b = parseInt(document.getElementById('blue').value, 10);
+
+  document.getElementById('LEDsim').style.backgroundColor = 'rgb('+r+', '+g+', '+b+')';
+}
+    </script>
+    <div id="LEDsim" style="width:150px;height:150px;position:absolute;top:100px;right:200px;border:1px solid black"></div>
+    
+</body>
+</html>

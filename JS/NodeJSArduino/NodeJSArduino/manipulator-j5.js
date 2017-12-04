@@ -1,6 +1,16 @@
-﻿var five = require("johnny-five");
-var board = new five.Board();
-
+﻿//var five = require("johnny-five");
+const five = require("johnny-five");
+const express = require("express");
+const app = express();
+const server = require("http").createServer(app);
+const io = require("socket.io")(server);
+var comport = "COM3";
+var board = new five.Board({
+    port: comport
+});
+/*
+*** definicja serw ***
+*/
 var base = new five.Servo({
     id: "BaseServo",     // User defined id
     pin: 11,           // Which pin is it attached to?
@@ -62,14 +72,29 @@ var gripper = new five.Servo({
     center: false,      // overrides startAt if true and moves the servo to the center of the range
 });
 
-board.on("ready", function () {
+function MoveArmToPos(baseAngle, shoulderAngle, elbowAngle, wristVAngle, wristTAngle, gripAngle) {
+    base.to(baseAngle);
+    shoulder.to(shoulderAngle);
+    elbow.to(elbowAngle);
+    wristV.to(wristVAngle);
+    wristT.to(wristTAngle);
+    gripper.to(gripAngle);
+}
 
-    // Initialize a Servo collection
+app.use(express.static(__dirname));
+app.get('/', function (req, res, next) {
+    res.sendFile(__dirname + '/manipulator.html')
+});
+
+board.on("ready", function () {
+    console.log("Arduino connected on " + comport);
     var initpin = new five.Pin(12);
     initpin.high();
-    //var servo = new five.Servo(11);
-
-    
+    io.on('connection', function (client) {
+        client.on('join', function (handshake) {
+            console.log(handshake);
+        });
+    });
     //servo.center();
 
 
@@ -125,13 +150,3 @@ board.on("ready", function () {
     // });
 
 });
-
-function MoveArmToPos(baseAngle, shoulderAngle, elbowAngle, wristVAngle,wristTAngle,gripAngle)
-{
-    base.to(baseAngle);
-    shoulder.to(shoulderAngle);
-    elbow.to(elbowAngle);
-    wristV.to(wristVAngle);
-    wristT.to(wristTAngle);
-    gripper.to(gripAngle);
-    }

@@ -30,6 +30,15 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="client.js">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="led-rgb-j5.js">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="manipulator-client.js">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="manipulator-j5.js">
       <SubType>Code</SubType>
     </Compile>
@@ -37,8 +46,11 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="server.js" />
+    <Content Include="manipulator.html">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="package.json" />
-    <Content Include="Page1.html">
+    <Content Include="RGB.html">
       <SubType>Code</SubType>
       <Publish>True</Publish>
     </Content>
