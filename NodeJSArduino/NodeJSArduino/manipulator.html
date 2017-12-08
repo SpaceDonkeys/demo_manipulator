@@ -1,0 +1,263 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+    <meta charset="utf-8" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <style>
+        #sortable {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            width: 60%;
+        }
+
+            #sortable li {
+                margin: 0 3px 3px 3px;
+                padding: 0.4em;
+                padding-left: 1.5em;
+                font-size: 1.4em;
+                height: 18px;
+            }
+
+                #sortable li span {
+                    position: absolute;
+                    margin-left: -1.3em;
+                }
+        /*
+
+        output { 
+  position: absolute;
+  background-image: linear-gradient(#444444, #999999);
+  width: 40px; 
+  height: 30px; 
+  text-align: center; 
+  color: white; 
+  border-radius: 10px; 
+  display: inline-block; 
+  font: bold 15px/30px Georgia;
+  bottom: 175%;
+  left: 0;
+  margin-left: -1%;
+}
+output:after { 
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-top: 10px solid #999999;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  margin-top: -1px;
+}
+form { 
+  position: relative; 
+  margin: 50px;
+}
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+  padding: 60px 20px;
+}
+@media (min-width: 600px) {
+  body {
+    padding: 60px;
+  }
+}
+
+.range-slider {
+  margin: 60px 0 0 0%;
+}
+
+.range-slider {
+  width: 100%;
+}
+
+.range-slider__range {
+  -webkit-appearance: none;
+  width: calc(100% - (73px));
+  height: 10px;
+  border-radius: 5px;
+  background: #d7dcdf;
+  outline: none;
+  padding: 0;
+  margin: 0;
+}
+.range-slider__range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+          appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #2c3e50;
+  cursor: pointer;
+  -webkit-transition: background .15s ease-in-out;
+  transition: background .15s ease-in-out;
+}
+.range-slider__range::-webkit-slider-thumb:hover {
+  background: #1abc9c;
+}
+.range-slider__range:active::-webkit-slider-thumb {
+  background: #1abc9c;
+}
+.range-slider__range::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border: 0;
+  border-radius: 50%;
+  background: #2c3e50;
+  cursor: pointer;
+  -webkit-transition: background .15s ease-in-out;
+  transition: background .15s ease-in-out;
+}
+.range-slider__range::-moz-range-thumb:hover {
+  background: #1abc9c;
+}
+.range-slider__range:active::-moz-range-thumb {
+  background: #1abc9c;
+}
+
+.range-slider__value {
+  display: inline-block;
+  position: relative;
+  width: 60px;
+  color: #fff;
+  line-height: 20px;
+  text-align: center;
+  border-radius: 3px;
+  background: #2c3e50;
+  padding: 5px 10px;
+  margin-left: 8px;
+}
+.range-slider__value:after {
+  position: absolute;
+  top: 8px;
+  left: -7px;
+  width: 0;
+  height: 0;
+  border-top: 7px solid transparent;
+  border-right: 7px solid #2c3e50;
+  border-bottom: 7px solid transparent;
+  content: '';
+}
+
+::-moz-range-track {
+  background: #d7dcdf;
+  border: 0;
+}
+
+input::-moz-focus-inner,
+input::-moz-focus-outer {
+  border: 0;
+}*/
+    </style>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+  $( function() {
+      $("#sortable").sortable({
+          cursor: "move",
+          //grid: [20, 10]
+      });
+    $( "#sortable" ).disableSelection();
+  });
+        /*var el, newPoint, newPlace, offset;
+
+  // Select all range inputs, watch for change
+  $("input[type='range']").change(function () {
+
+      // Cache this for efficiency
+      el = $(this);
+
+      // Measure width of range input
+      width = el.width();
+
+      // Figure out placement percentage between left and right of input
+      newPoint = (el.val() - el.attr("min")) / (el.attr("max") - el.attr("min"));
+
+      offset = -1;
+
+      // Prevent bubble from going beyond left or right (unsupported browsers)
+      if (newPoint < 0) { newPlace = 0; }
+      else if (newPoint > 1) { newPlace = width; }
+      else { newPlace = width * newPoint + offset; offset -= newPoint; }
+
+      // Move bubble
+      el
+        .next("output")
+        .css({
+            left: newPlace,
+            marginLeft: offset + "%"
+        })
+          .text(el.val());
+  })
+   // Fake a change to position bubble at page load
+   .trigger('change');
+   
+  var rangeSlider = function () {
+      var slider = $('.range-slider'), range = $('.range-slider__range'), value = $('.range-slider__value');
+      slider.each(function () {
+          value.each(function () {
+              var value = $(this).prev().attr('value');
+              $(this).html(value);
+          });
+          range.on('input', function () {
+              $(this).next(value).html(this.value);
+          });
+      });
+  }; rangeSlider();*/
+    </script>
+    <title>Manipulator</title>
+</head>
+
+<body>
+    <!--<script src="/socket.io/socket.io.js"></script>
+
+    <script src="./manipulator-client.js"></script>-->
+
+    <h3>Podstawa:</h3>
+    <input id="base"name="base" type="range" min="0" max="180" step="1" value="0">
+    <output for="base" onforminput="value = base.valueAsNumber;"></output>
+    <h3>Ramię:</h3>
+    <input id="shoulder" name="shoulder" type="range" min="15" max="165" step="1" value="0">
+    <output for="shoulder" onforminput="value = shoulder.valueAsNumber;"></output>
+    <h3>Łokieć:</h3>
+    <input id="elbow" name="elbow" type="range" min="0" max="180" step="1" value="0">
+    <output for="elbow" onforminput="value = elbow.valueAsNumber;"></output>
+    <!--
+    <div class="range-slider">
+      <input class="range-slider__range" type="range" step="1" min="0" max="180">
+      <span class="range-slider__value">0</span></div><div class="range-slider">
+      <input class="range-slider__range" type="range" step="1" min="5" max="165">
+      <span class="range-slider__value">5</span></div><div class="range-slider">
+      <input class="range-slider__range" type="range" step="1" min="0" max="180">
+      <span class="range-slider__value">0</span>
+    </div> -->
+
+    <ul id="sortable">
+        <li class="ui-state-default" id="Base45CW"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Obróć podstawę o 45 stopni</li>
+        <li class="ui-state-default" id="GrabOpen"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Otwórz chwytak</li>
+        <li class="ui-state-default" id="GrabClose"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Zamknij chwytak</li>
+        <li class="ui-state-default" id="5"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 5</li>
+        <li class="ui-state-default" id="6"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 6</li>
+        <li class="ui-state-default" id="7"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 7</li>
+    </ul>
+    <input id="Button1" type="button" value="Wykonaj" onclick="printList()" />
+    <script>
+        function printList()
+        {
+            console.log($("#sortable").sortable('toArray', { attribute: 'id' }));
+        }
+    </script>
+</body>
+</html>
