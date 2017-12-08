@@ -49,7 +49,6 @@
     <Content Include="manipulator.html">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="package.json" />
     <Content Include="RGB.html">
       <SubType>Code</SubType>
       <Publish>True</Publish>
