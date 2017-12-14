@@ -4,11 +4,11 @@ const express = require("express");
 const app = express();
 const server = require("http").createServer(app);
 const io = require("socket.io")(server);
-var comport = process.argv[2];
+var comport = "/dev/ttyACM0";//process.argv[2];
 var board = new five.Board({
     port: comport
 });
-
+var sleep = require('sleep');
 
 
 
@@ -108,10 +108,23 @@ board.on("ready", function () {
     // the Repl instance's context;
     // allows direct command line access
     /*this.repl.inject({
-      servo: servo
+      base: base,
+      shoulder: shoulder,
+      elbow: elbow,
+      wristV: wristV,
+      wristT: wristT,
+      gripper: gripper
     });*/
 
-
+    sleep.sleep(2);
+    MoveArmToPos(90,90,90,90,90,73);
+    sleep.sleep(10);
+    MoveArmToPos(180,165,15,90,10);
+    sleep.sleep(10);
+    MoveArmToPos(90,90,90,90,90,73);
+    console.log(base.value + " " + shoulder.value + " "+ elbow.value + " " + wristV.value +" "+wristT.value+" "+gripper.value);
+    //sleep.sleep(10);
+    //MoveArmToPos(180,165,15,90,10);
     // min()
     //
     // set all servos to the minimum degrees
