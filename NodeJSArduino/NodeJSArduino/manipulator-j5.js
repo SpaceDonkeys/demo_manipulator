@@ -4,15 +4,12 @@ const express = require("express");
 const app = express();
 const server = require("http").createServer(app);
 const io = require("socket.io")(server);
+const wektor=require("vektor");
 var comport = "/dev/ttyACM0";//process.argv[2];
 var board = new five.Board({
     port: comport
 });
 var sleep = require('sleep');
-
-
-
-
 app.use(express.static(__dirname));
 app.get('/', function (req, res, next) {
     res.sendFile(__dirname + '/manipulator.html')
@@ -101,71 +98,44 @@ board.on("ready", function () {
         wristT.to(wristTAngle);
         gripper.to(gripAngle);
     }
-    //servo.center();
-
-
-    // Inject the `servo` hardware into
-    // the Repl instance's context;
-    // allows direct command line access
-    /*this.repl.inject({
+    this.repl.inject({
       base: base,
       shoulder: shoulder,
       elbow: elbow,
       wristV: wristV,
       wristT: wristT,
       gripper: gripper
-    });*/
+    });
 
-    sleep.sleep(2);
-    MoveArmToPos(90,90,90,90,90,73);
-    sleep.sleep(10);
-    MoveArmToPos(180,165,15,90,10);
-    sleep.sleep(10);
-    MoveArmToPos(90,90,90,90,90,73);
-    console.log(base.value + " " + shoulder.value + " "+ elbow.value + " " + wristV.value +" "+wristT.value+" "+gripper.value);
+    //sleep.sleep(2);
+    //MoveArmToPos(90,90,90,90,90,73);
     //sleep.sleep(10);
     //MoveArmToPos(180,165,15,90,10);
-    // min()
-    //
-    // set all servos to the minimum degrees
-    // defaults to 0
-    //
-    // eg. servos.min();
+    //sleep.sleep(10);
+    //MoveArmToPos(90,90,90,90,90,73);
+    console.log(base.value + " " + shoulder.value + " "+ elbow.value + " " + wristV.value +" "+wristT.value+" "+gripper.value);
+    //wristT.sweep();
+    //shoulder.to(165);
+    //elbow.to(135);
+    //gripper.to(73);
+    //gripper.to(10);
+    //sleep.sleep(10);
+    //MoveArmToPos(180,165,15,90,10);
 
-    // max()
-    //
-    // set all servos to the maximum degrees
-    // defaults to 180
-    //
-    // eg. servos.max();
+    client.on('move', function (data) {
+        /*
+        state.red = data.color === 'red' ? data.value : state.red;
+        state.green = data.color === 'green' ? data.value : state.green;
+        state.blue = data.color === 'blue' ? data.value : state.blue;
 
-    // to( deg )
-    //
-    // set all servos to deg
-    //
-    // eg. servos.to( deg );
-
-    // step( deg )
-    //
-    // step all servos by deg
-    //
-    // eg. servos.step( -20 );
-
-    // stop()
-    //
-    // stop all servos
-    //
-    // eg. servos.stop();
-
-    // each( callbackFn )
-    //
-    // Execute callbackFn for each active servo instance
-    //
-    // eg.
-    // servos.each(function( servo, index ) {
-    //
-    //  `this` refers to the current servo instance
-    //
-    // });
-
+        // Set the new colors
+        setStateColor(state);
+        */
+        client.emit('move', data);
+        client.broadcast.emit('move', data);
+    });
 });
+const port = process.env.PORT || 3000;
+
+server.listen(port);
+console.log(`Server listening on http://localhost:${port}`);
