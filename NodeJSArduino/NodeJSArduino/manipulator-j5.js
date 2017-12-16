@@ -136,6 +136,17 @@ board.on("ready", function () {
     });
 });
 const port = process.env.PORT || 3000;
+io.on('connection', function (socket) {
+    socket.on('move', function (msg) {
+        io.emit('move', msg);
+        io.broadcast.emit('move', msg);
+        console.log(msg);
+    });
+    socket.on('join', function (handshake) {
+        console.log(handshake);
+    });
+});
 
-server.listen(port);
-console.log(`Server listening on http://localhost:${port}`);
+server.listen(port, function () {
+    console.log('listening on *:' + port);
+});

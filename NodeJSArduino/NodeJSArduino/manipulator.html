@@ -7,174 +7,176 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="/resources/demos/style.css">
+    <!--<link rel="stylesheet" href="/resources/demos/style.css">-->
     <style>
-        #sortable {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-            width: 60%;
+                #sortable {
+                    list-style-type: none;
+                    margin: 0;
+                    padding: 0;
+                    width: 60%;
+                }
+
+                    #sortable li {
+                        margin: 0 3px 3px 3px;
+                        padding: 0.4em;
+                        padding-left: 1.5em;
+                        font-size: 1.4em;
+                        height: 18px;
+                    }
+
+                        #sortable li span {
+                            position: absolute;
+                            margin-left: -1.3em;
+                        }
+                /*
+
+                output {
+          position: absolute;
+          background-image: linear-gradient(#444444, #999999);
+          width: 40px;
+          height: 30px;
+          text-align: center;
+          color: white;
+          border-radius: 10px;
+          display: inline-block;
+          font: bold 15px/30px Georgia;
+          bottom: 175%;
+          left: 0;
+          margin-left: -1%;
+        }
+        output:after {
+          content: "";
+          position: absolute;
+          width: 0;
+          height: 0;
+          border-top: 10px solid #999999;
+          border-left: 5px solid transparent;
+          border-right: 5px solid transparent;
+          top: 100%;
+          left: 50%;
+          margin-left: -5px;
+          margin-top: -1px;
+        }
+        form {
+          position: relative;
+          margin: 50px;
+        }
+        *, *:before, *:after {
+          box-sizing: border-box;
         }
 
-            #sortable li {
-                margin: 0 3px 3px 3px;
-                padding: 0.4em;
-                padding-left: 1.5em;
-                font-size: 1.4em;
-                height: 18px;
-            }
+        body {
+          font-family: sans-serif;
+          padding: 60px 20px;
+        }
+        @media (min-width: 600px) {
+          body {
+            padding: 60px;
+          }
+        }
 
-                #sortable li span {
-                    position: absolute;
-                    margin-left: -1.3em;
-                }
-        /*
+        .range-slider {
+          margin: 60px 0 0 0%;
+        }
 
-        output { 
-  position: absolute;
-  background-image: linear-gradient(#444444, #999999);
-  width: 40px; 
-  height: 30px; 
-  text-align: center; 
-  color: white; 
-  border-radius: 10px; 
-  display: inline-block; 
-  font: bold 15px/30px Georgia;
-  bottom: 175%;
-  left: 0;
-  margin-left: -1%;
-}
-output:after { 
-  content: "";
-  position: absolute;
-  width: 0;
-  height: 0;
-  border-top: 10px solid #999999;
-  border-left: 5px solid transparent;
-  border-right: 5px solid transparent;
-  top: 100%;
-  left: 50%;
-  margin-left: -5px;
-  margin-top: -1px;
-}
-form { 
-  position: relative; 
-  margin: 50px;
-}
-*, *:before, *:after {
-  box-sizing: border-box;
-}
+        .range-slider {
+          width: 100%;
+        }
 
-body {
-  font-family: sans-serif;
-  padding: 60px 20px;
-}
-@media (min-width: 600px) {
-  body {
-    padding: 60px;
-  }
-}
+        .range-slider__range {
+          -webkit-appearance: none;
+          width: calc(100% - (73px));
+          height: 10px;
+          border-radius: 5px;
+          background: #d7dcdf;
+          outline: none;
+          padding: 0;
+          margin: 0;
+        }
+        .range-slider__range::-webkit-slider-thumb {
+          -webkit-appearance: none;
+                  appearance: none;
+          width: 20px;
+          height: 20px;
+          border-radius: 50%;
+          background: #2c3e50;
+          cursor: pointer;
+          -webkit-transition: background .15s ease-in-out;
+          transition: background .15s ease-in-out;
+        }
+        .range-slider__range::-webkit-slider-thumb:hover {
+          background: #1abc9c;
+        }
+        .range-slider__range:active::-webkit-slider-thumb {
+          background: #1abc9c;
+        }
+        .range-slider__range::-moz-range-thumb {
+          width: 20px;
+          height: 20px;
+          border: 0;
+          border-radius: 50%;
+          background: #2c3e50;
+          cursor: pointer;
+          -webkit-transition: background .15s ease-in-out;
+          transition: background .15s ease-in-out;
+        }
+        .range-slider__range::-moz-range-thumb:hover {
+          background: #1abc9c;
+        }
+        .range-slider__range:active::-moz-range-thumb {
+          background: #1abc9c;
+        }
 
-.range-slider {
-  margin: 60px 0 0 0%;
-}
+        .range-slider__value {
+          display: inline-block;
+          position: relative;
+          width: 60px;
+          color: #fff;
+          line-height: 20px;
+          text-align: center;
+          border-radius: 3px;
+          background: #2c3e50;
+          padding: 5px 10px;
+          margin-left: 8px;
+        }
+        .range-slider__value:after {
+          position: absolute;
+          top: 8px;
+          left: -7px;
+          width: 0;
+          height: 0;
+          border-top: 7px solid transparent;
+          border-right: 7px solid #2c3e50;
+          border-bottom: 7px solid transparent;
+          content: '';
+        }
 
-.range-slider {
-  width: 100%;
-}
+        ::-moz-range-track {
+          background: #d7dcdf;
+          border: 0;
+        }
 
-.range-slider__range {
-  -webkit-appearance: none;
-  width: calc(100% - (73px));
-  height: 10px;
-  border-radius: 5px;
-  background: #d7dcdf;
-  outline: none;
-  padding: 0;
-  margin: 0;
-}
-.range-slider__range::-webkit-slider-thumb {
-  -webkit-appearance: none;
-          appearance: none;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: #2c3e50;
-  cursor: pointer;
-  -webkit-transition: background .15s ease-in-out;
-  transition: background .15s ease-in-out;
-}
-.range-slider__range::-webkit-slider-thumb:hover {
-  background: #1abc9c;
-}
-.range-slider__range:active::-webkit-slider-thumb {
-  background: #1abc9c;
-}
-.range-slider__range::-moz-range-thumb {
-  width: 20px;
-  height: 20px;
-  border: 0;
-  border-radius: 50%;
-  background: #2c3e50;
-  cursor: pointer;
-  -webkit-transition: background .15s ease-in-out;
-  transition: background .15s ease-in-out;
-}
-.range-slider__range::-moz-range-thumb:hover {
-  background: #1abc9c;
-}
-.range-slider__range:active::-moz-range-thumb {
-  background: #1abc9c;
-}
-
-.range-slider__value {
-  display: inline-block;
-  position: relative;
-  width: 60px;
-  color: #fff;
-  line-height: 20px;
-  text-align: center;
-  border-radius: 3px;
-  background: #2c3e50;
-  padding: 5px 10px;
-  margin-left: 8px;
-}
-.range-slider__value:after {
-  position: absolute;
-  top: 8px;
-  left: -7px;
-  width: 0;
-  height: 0;
-  border-top: 7px solid transparent;
-  border-right: 7px solid #2c3e50;
-  border-bottom: 7px solid transparent;
-  content: '';
-}
-
-::-moz-range-track {
-  background: #d7dcdf;
-  border: 0;
-}
-
-input::-moz-focus-inner,
-input::-moz-focus-outer {
-  border: 0;
-}*/
+        input::-moz-focus-inner,
+        input::-moz-focus-outer {
+          border: 0;
+        }*/
     </style>
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+
     <script>
-  $( function() {
-      $("#sortable").sortable({
-          cursor: "move",
-          //grid: [20, 10]
-      });
-    $( "#sortable" ).disableSelection();
-  });
+        $(function () {
+            $("#sortable").sortable({
+                cursor: "move",
+                //grid: [20, 10]
+            });
+            $("#sortable").disableSelection();
+        });
         /*var el, newPoint, newPlace, offset;
 
-  // Select all range inputs, watch for change
-  $("input[type='range']").change(function () {
+// Select all range inputs, watch for change
+$("input[type='range']").change(function () {
 
       // Cache this for efficiency
       el = $(this);
@@ -200,11 +202,11 @@ input::-moz-focus-outer {
             marginLeft: offset + "%"
         })
           .text(el.val());
-  })
-   // Fake a change to position bubble at page load
-   .trigger('change');
-   
-  var rangeSlider = function () {
+})
+// Fake a change to position bubble at page load
+.trigger('change');
+
+var rangeSlider = function () {
       var slider = $('.range-slider'), range = $('.range-slider__range'), value = $('.range-slider__value');
       slider.each(function () {
           value.each(function () {
@@ -215,8 +217,10 @@ input::-moz-focus-outer {
               $(this).next(value).html(this.value);
           });
       });
-  }; rangeSlider();*/
+}; rangeSlider();*/
     </script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="manipulator-client.js"></script>
     <title>Manipulator</title>
 </head>
 
@@ -226,14 +230,23 @@ input::-moz-focus-outer {
     <script src="./manipulator-client.js"></script>-->
 
     <h3>Podstawa:</h3>
-    <input id="base"name="base" type="range" min="0" max="180" step="1" value="0">
-    <output for="base" onforminput="value = base.valueAsNumber;"></output>
+    <input id="base" name="base" type="range" min="0" max="180" step="1" value="0">
+    <!--<output for="base" onforminput="value = base.valueAsNumber;"></output>-->
     <h3>Ramię:</h3>
     <input id="shoulder" name="shoulder" type="range" min="15" max="165" step="1" value="0">
-    <output for="shoulder" onforminput="value = shoulder.valueAsNumber;"></output>
+    <!--<output for="shoulder" onforminput="value = shoulder.valueAsNumber;"></output>-->
     <h3>Łokieć:</h3>
     <input id="elbow" name="elbow" type="range" min="0" max="180" step="1" value="0">
-    <output for="elbow" onforminput="value = elbow.valueAsNumber;"></output>
+    <!--<output for="elbow" onforminput="value = elbow.valueAsNumber;"></output>-->
+    <h3>Nadgarstek - ugięcie:</h3>
+    <input id="wristV" name="wristV" type="range" min="0" max="180" step="1" value="0">
+    <!--<output for="wristV" onforminput="value = base.valueAsNumber;"></output>-->
+    <h3>Nadgarstek - skręcenie:</h3>
+    <input id="wristT" name="wristT" type="range" min="0" max="180" step="1" value="0">
+    <!--<output for="wristT" onforminput="value = shoulder.valueAsNumber;"></output>-->
+    <h3>Chwytak:</h3>
+    <input id="gripper" name="gripper" type="range" min="10" max="73" step="1" value="0">
+    <!--<output for="gripper" onforminput="value = elbow.valueAsNumber;"></output>-->
     <!--
     <div class="range-slider">
       <input class="range-slider__range" type="range" step="1" min="0" max="180">
@@ -252,11 +265,12 @@ input::-moz-focus-outer {
         <li class="ui-state-default" id="6"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 6</li>
         <li class="ui-state-default" id="7"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 7</li>
     </ul>
-    <input id="Button1" type="button" value="Wykonaj" onclick="printList()" />
+    <input id="execute" type="button" value="Wykonaj" onclick="sendList()" />
     <script>
-        function printList()
-        {
+        //var socket = io();
+        function sendList() {
             console.log($("#sortable").sortable('toArray', { attribute: 'id' }));
+            //socket.emit('move', $("#sortable").sortable('toArray', { attribute: 'id' }));
         }
     </script>
 </body>
